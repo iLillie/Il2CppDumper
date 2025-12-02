@@ -16,11 +16,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       - name: Run publish for net8.0
+        id: publish
         shell: pwsh
         run: |
           pwsh -NoProfile -ExecutionPolicy Bypass -File .\build-ci.ps1 -TargetFrameworks 'net8.0'
       - uses: actions/upload-artifact@v4
         with:
           name: Il2CppDumper
-          path: |
-            \Il2CppDumper\bin\Release\published
+          path: ${{ steps.publish.outputs.artifact-path }}
